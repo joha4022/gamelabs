@@ -3,3 +3,4 @@
 Uses freetogame api
 https://www.freetogame.com/api-doc
 
+API Key
