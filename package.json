@@ -1,0 +1,19 @@
+{
+  "name": "sdi17-project1",
+  "version": "1.0.0",
+  "description": "sdi17 1st project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joha4022/sdi17-project1.git"
+  },
+  "author": "Joo Young Han",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joha4022/sdi17-project1/issues"
+  },
+  "homepage": "https://github.com/joha4022/sdi17-project1#readme"
+}
