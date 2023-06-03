@@ -13,10 +13,17 @@ body {
     background-attachment: fixed;
 }
 
+h1 {
+    padding-left: 50px;
+    display: inline-flex;
+}
+
 /* Navbar container */
 .navbar {
     overflow: hidden;
     font-family: Arial;
+    display: inline-flex;
+
 }
 
 /* Links inside the navbar */
@@ -67,6 +74,7 @@ body {
 .dropdown-content a {
     float: none;
     color: white;
+    background-color: #1f2833e0;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -75,7 +83,7 @@ body {
 
 /* Add a grey background color to dropdown links on hover */
 .dropdown-content a:hover {
-    background-color: #c5c6c730;
+    background-color: #45a29de0;
 }
 
 /* Show the dropdown menu on hover */
@@ -86,6 +94,7 @@ body {
 h2 {
     color: #66fcf2;
     padding-left: 50px;
+    padding-top: 200px;
     font-size: 50px;
 }
 
@@ -94,6 +103,40 @@ h4 {
     padding-left: 50px;
 }
 
+h3 {
+    color: #d1e8e2
+}
+
 .displayPage {
-    margin-top: 220px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gameBox {
+    width: 20vw;
+    padding: 30px;
+}
+
+.textBox {
+    display: grid;
+    margin-bottom: 10px;
+}
+
+.linkButton {
+    text-decoration: none;
+    color:white;
+    background: #43318db7;
+    padding: 10px;
+    border-radius: 5px;
+    
+}
+.linkButton:hover {
+    background: #8d3150ea;
+}
+
+
+span {
+    color: #c5c6c7;
+    margin-bottom: 2px;
 }
