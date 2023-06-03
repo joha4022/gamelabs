@@ -3,6 +3,7 @@ import GAMELABS_API_KEY from "./apikey.js";
 
 // fetching information
 const displayPage = document.querySelector('.displayPage');
+const allCategories = ['mmorpg', 'shooter', 'strategy', 'moba', 'racing', 'sports', 'social', 'sandbox', 'open-world', 'survival', 'pvp', 'pve', 'pixel', 'voxel', 'zombie', 'turn-based', 'first-person', 'third-Person', 'top-down', 'tank', 'space', 'sailing', 'side-scroller', 'superhero', 'permadeath', 'card', 'battle-royale', 'mmo', 'mmofps', 'mmotps', '3d', '2d', 'anime', 'fantasy', 'sci-fi', 'fighting', 'action-rpg', 'action', 'military', 'martial-arts', 'flight', 'low-spec', 'tower-defense', 'horror', 'mmorts']
 
 const removeh2h4 = () => {
     document.querySelector('h2').remove();
@@ -48,7 +49,7 @@ const requestInfo =  (url) => {
             for(let i = 0; i < data.length; i++) {
                 displayPage.appendChild(document.createElement('div'));
             }
-            console.log(displayPage.childNodes.length)
+            console.log(`Displaying total of: ${displayPage.childNodes.length} games`)
             for(let i = 0; i < displayPage.childNodes.length; i++) {
                 displayPage.childNodes[i].setAttribute('class', 'gameBox');
                 displayPage.childNodes[i].appendChild(create('img'));
@@ -73,7 +74,23 @@ const requestInfo =  (url) => {
     )
     
 }
-//variables
+
+const displayCategories = () => {
+    if(displayPage.hasChildNodes()) {
+        clearChild(displayPage);
+    }
+    for(let i = 0; i < allCategories.length; i++) {
+        displayPage.appendChild(document.createElement('div'));
+    }
+    for(let i = 0; i < allCategories.length; i++) {
+        displayPage.childNodes[i].appendChild(create('img'));
+        displayPage.childNodes[i].appendChild(create('a'));
+        displayPage.childNodes[i].querySelector('a').setAttribute('class', `linkButton`);
+        displayPage.childNodes[i].querySelector('a').setAttribute('onclick', `requestInfo(url('${allCategories[i]}'))`);
+        displayPage.childNodes[i].querySelector('a').textContent = `${allCategories[i]}`;
+
+    }
+}
 
 // adding event listners
 document.querySelector(`#shooter`).addEventListener('click', () => {
@@ -119,9 +136,9 @@ document.querySelector(`#strategy`).addEventListener('click', () => {
 document.querySelector(`#seeAll`).addEventListener('click', () => {
     if(document.querySelector('h2') && document.querySelector('h4')) {
         removeh2h4();
-        requestInfo(url(''));
+        displayCategories();
     } else {
-        requestInfo(url(''));
+        displayCategories();
     }
 });
 
