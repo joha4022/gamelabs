@@ -1,10 +1,11 @@
 // imports
+import GAMELABS_API_KEY from "./apikey.js";
 
 // fetching information
 const displayPage = document.querySelector('.displayPage');
 const createDiv = document.createElement('div');
 
-removeAllChild = (parent) => {
+const removeAllChild = (parent) => {
     while(parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
@@ -23,7 +24,7 @@ const url = (params) => {
 const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '2bdbaa3e15mshae67d99e308b3e0p1d49e6jsnc9ac639487ac',
+		'X-RapidAPI-Key': GAMELABS_API_KEY,
 		'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
 	}
 };

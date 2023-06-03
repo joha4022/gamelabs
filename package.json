@@ -14,9 +14,5 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/joha4022/sdi17-project1/issues"
-  },
-  "homepage": "https://github.com/joha4022/sdi17-project1#readme",
-  "dependencies": {
-    "dotenv": "^16.1.3"
   }
 }
