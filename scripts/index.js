@@ -4,7 +4,8 @@ import GAMELABS_API_KEY from "./apikey.js";
 // fetching information
 const displayPage = document.querySelector('.displayPage');
 const allCategories = ['mmorpg', 'shooter', 'strategy', 'moba', 'racing', 'sports', 'social', 'sandbox', 'open-world', 'survival', 'pvp', 'pve', 'pixel', 'voxel', 'zombie', 'turn-based', 'first-person', 'third-Person', 'top-down', 'tank', 'space', 'sailing', 'side-scroller', 'superhero', 'permadeath', 'card', 'battle-royale', 'mmo', 'mmofps', 'mmotps', '3d', '2d', 'anime', 'fantasy', 'sci-fi', 'fighting', 'action-rpg', 'action', 'military', 'martial-arts', 'flight', 'low-spec', 'tower-defense', 'horror', 'mmorts']
-
+const colorPalette = ['#ff124fdb', '#2d7bf0db', '#e455aedb', '#7a04ebdb', '#120458db', '#1ac5b0db', '#710000db', '#272932db'];
+const h2ColorPalette = ['#fdf500', '#9370db', '#66fcf2'];
 const removeh2h4 = () => {
     document.querySelector('h2').remove();
     document.querySelector('h4').remove();
@@ -16,6 +17,10 @@ const clearChild = (parent) => {
     }
 }
 
+const h2ColorRandomizer = () => {
+    document.querySelector('h2').style.color = `${h2ColorPalette[Math.floor(Math.random() * h2ColorPalette.length)]}`;
+}
+h2ColorRandomizer();
 
 const create = (tag) => {
     return document.createElement(tag);
@@ -83,13 +88,30 @@ const displayCategories = () => {
         displayPage.appendChild(document.createElement('div'));
     }
     for(let i = 0; i < allCategories.length; i++) {
+        displayPage.childNodes[i].setAttribute('class', 'categoryBox');
         displayPage.childNodes[i].appendChild(create('img'));
+        displayPage.childNodes[i].querySelector('img').setAttribute('class', 'sampleImage');
         displayPage.childNodes[i].appendChild(create('a'));
-        displayPage.childNodes[i].querySelector('a').setAttribute('class', `linkButton`);
-        displayPage.childNodes[i].querySelector('a').setAttribute('onclick', `requestInfo(url('${allCategories[i]}'))`);
+        displayPage.childNodes[i].querySelector('a').setAttribute('class', `categoryButton`);
         displayPage.childNodes[i].querySelector('a').textContent = `${allCategories[i]}`;
-
+        displayPage.childNodes[i].querySelector('a').addEventListener('click', () => {
+            requestInfo(url(`${allCategories[i]}`));
+            console.log(`Displaying ${allCategories[i]} related games`)
+        });
+        fetch(url(`${allCategories[i]}`), options)
+        .then(res => res.json())
+        .then(data => {
+            displayPage.childNodes[i].querySelector('img').src = data[0].thumbnail;
+        })
     }
+    for(let box of displayPage.childNodes) {
+        console.log(Math.floor(Math.random() * colorPalette.length))
+        box.style.backgroundColor = `${colorPalette[Math.floor(Math.random() * colorPalette.length)]}`;
+    }
+}
+
+const createAlphaBox = () => {
+
 }
 
 // adding event listners
@@ -139,6 +161,14 @@ document.querySelector(`#seeAll`).addEventListener('click', () => {
         displayCategories();
     } else {
         displayCategories();
+    }
+});
+document.querySelector(`#alphabetical`).addEventListener('click', () => {
+    if(document.querySelector('h2') && document.querySelector('h4')) {
+        removeh2h4();
+        createAlphaBox();
+    } else {
+        createAlphaBox();
     }
 });
 

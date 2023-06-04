@@ -14,12 +14,19 @@ body {
 }
 
 h1 {
-    padding-left: 50px;
-    padding-right: 50px;
     display: inline-flex;
+    font-size: 50px;
 }
 
-/* Navbar container */
+.labsh2 {
+    padding-right: 100px;
+    color:#66fcf2;
+}
+
+.gameh1 {
+    padding-left: 50px;
+}
+
 .navbar {
     overflow: hidden;
     font-family: Arial;
@@ -27,7 +34,6 @@ h1 {
 
 }
 
-/* Links inside the navbar */
 .navbar a {
     float: left;
     font-size: 16px;
@@ -37,13 +43,11 @@ h1 {
     text-decoration: none;
 }
 
-/* The dropdown container */
 .dropdown {
     float: left;
     overflow: hidden;
 }
 
-/* Dropdown button */
 .dropdown .dropbtn {
     font-size: 16px;
     border: none;
@@ -52,18 +56,14 @@ h1 {
     padding: 14px 16px;
     background-color: inherit;
     font-family: inherit;
-    /* Important for vertical align on mobile phones */
     margin: 0;
-    /* Important for vertical align on mobile phones */
 }
 
-/* Add a red background color to navbar links on hover */
 .navbar a:hover,
 .dropdown:hover .dropbtn {
     background-color: c5c6c7;
 }
 
-/* Dropdown content (hidden by default) */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -71,7 +71,6 @@ h1 {
     z-index: 1;
 }
 
-/* Links inside the dropdown */
 .dropdown-content a {
     float: none;
     color: white;
@@ -82,26 +81,25 @@ h1 {
     text-align: left;
 }
 
-/* Add a grey background color to dropdown links on hover */
 .dropdown-content a:hover {
     background-color: #45a29de0;
 }
 
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
 h2 {
-    color: #66fcf2;
+    color:#66fcf2;
     padding-left: 50px;
     padding-top: 200px;
-    font-size: 50px;
+    font-size: 60px;
 }
 
 h4 {
     color: #d1e8e2cb;
     padding-left: 50px;
+    font-size: 20px;
 }
 
 h3 {
@@ -115,7 +113,7 @@ h3 {
 }
 
 .gameBox {
-    width: 20vw;
+    width: 15vw;
     padding: 30px;
 }
 
@@ -130,8 +128,8 @@ h3 {
     background: #43318db7;
     padding: 10px;
     border-radius: 5px;
-    
 }
+
 .linkButton:hover {
     background: #8d3150ea;
 }
@@ -140,4 +138,43 @@ h3 {
 span {
     color: #c5c6c7;
     margin-bottom: 2px;
+}
+
+.categoryBox {
+    margin: 25px;
+    position: relative;
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+img {
+    border-radius: 5px;
+}
+
+.sampleImage {
+    height: 100px;
+    transform: rotate(25deg);
+    position: relative;
+    top: 60%;
+    left: 30%
+}
+
+.categoryButton {
+    text-decoration: none;
+    color:white;
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.categoryButton:hover {
+    background: #8d3150ea;
+    cursor: pointer;
 }
