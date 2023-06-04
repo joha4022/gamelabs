@@ -62,7 +62,7 @@ const requestInfo =  (url) => {
                 displayPage.childNodes[i].appendChild(create('div'));
                 displayPage.childNodes[i].querySelector('div').setAttribute('class', 'textBox');
                 displayPage.childNodes[i].querySelector('.textBox').appendChild(create('h3'));
-                displayPage.childNodes[i].querySelector('.textBox').childNodes[0].textContent = `${data[i].title}`;
+                displayPage.childNodes[i].querySelector('.textBox').childNodes[0].textContent = `${data[i].title}`.toUpperCase();
                 displayPage.childNodes[i].querySelector('.textBox').appendChild(create('span'));
                 displayPage.childNodes[i].querySelector('.textBox').childNodes[1].textContent = `Developer : ${data[i].developer}`;
                 displayPage.childNodes[i].querySelector('.textBox').appendChild(create('span'));
@@ -93,7 +93,7 @@ const displayCategories = () => {
         displayPage.childNodes[i].querySelector('img').setAttribute('class', 'sampleImage');
         displayPage.childNodes[i].appendChild(create('a'));
         displayPage.childNodes[i].querySelector('a').setAttribute('class', `categoryButton`);
-        displayPage.childNodes[i].querySelector('a').textContent = `${allCategories[i]}`;
+        displayPage.childNodes[i].querySelector('a').textContent = `${allCategories[i]}`.toUpperCase();
         displayPage.childNodes[i].querySelector('a').addEventListener('click', () => {
             requestInfo(url(`${allCategories[i]}`));
             console.log(`Displaying ${allCategories[i]} related games`)
