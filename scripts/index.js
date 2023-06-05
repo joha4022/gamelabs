@@ -37,6 +37,9 @@ const create = (tag) => {
     return document.createElement(tag);
 }
 
+const spinner = (option) => {
+    document.querySelector('.loadingio-spinner-spinner-c5cmjuf7ctq').style.display = option;
+}
 
 const url = (params) => {
     let search = `?category=${params}`
@@ -56,8 +59,14 @@ const options = {
 };
 
 const requestInfo = (url) => {
+    spinner('inline-block');
     fetch(url, options)
-        .then(response => response.json())
+        .then(response => {
+            if(response.status === 200) {
+                spinner('none');
+            }
+            return response.json();
+        })
         .then(data => {
             if (displayPage.hasChildNodes()) {
                 clearChild(displayPage);
@@ -91,6 +100,7 @@ const requestInfo = (url) => {
 }
 
 const displayCategories = () => {
+    spinner('inline-block');
     if (displayPage.hasChildNodes()) {
         clearChild(displayPage);
     }
@@ -109,7 +119,12 @@ const displayCategories = () => {
             console.log(`Displaying ${allCategories[i]} related games`)
         });
         fetch(url(`${allCategories[i]}`), options)
-            .then(res => res.json())
+            .then(res => {
+                if(res.status === 200) {
+                    spinner('none');
+                }
+                return res.json();
+            })
             .then(data => {
                 displayPage.childNodes[i].querySelector('img').src = data[0].thumbnail;
             })
@@ -155,6 +170,7 @@ const alphaDataDisplay = (letterData) => {
 
 const createAlphaBox = () => {
     alphabeticalData = {};
+    spinner('inline-block');
     if (displayPage.hasChildNodes()) {
         clearChild(displayPage);
     }
@@ -181,7 +197,12 @@ const createAlphaBox = () => {
     }
     // fetch data & distribute them into the right categories && automatically display #s
     fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=alphabetical', options)
-    .then(res => res.json())
+    .then(res => {
+        if(res.status === 200) {
+            spinner('none');
+        }
+        return res.json();
+    })
     .then(data => {
         data.forEach(game => {
             if(!isNaN(game.title[0])) {alphabeticalData['#'].push(game)};
