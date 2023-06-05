@@ -1,7 +1,10 @@
-# sdi17-project1
+# sdi17-project1 (GameLabs)
 
 Uses freetogame api
 https://www.freetogame.com/api-doc
+
+Download
+1. Fork and clone this repository.
 
 API Key
 1. create apikey.js inside the scripts folder
@@ -12,3 +15,8 @@ const GAMELABS_API_KEY = 'your api key';
 
 export default GAMELABS_API_KEY;
 ```
+Running GameLabs
+1. Run the files using the VS Code Live Server extension.
+
+
+

@@ -5,21 +5,32 @@ import GAMELABS_API_KEY from "./apikey.js";
 const displayPage = document.querySelector('.displayPage');
 const allCategories = ['mmorpg', 'shooter', 'strategy', 'moba', 'racing', 'sports', 'social', 'sandbox', 'open-world', 'survival', 'pvp', 'pve', 'pixel', 'voxel', 'zombie', 'turn-based', 'first-person', 'third-Person', 'top-down', 'tank', 'space', 'sailing', 'side-scroller', 'superhero', 'permadeath', 'card', 'battle-royale', 'mmo', 'mmofps', 'mmotps', '3d', '2d', 'anime', 'fantasy', 'sci-fi', 'fighting', 'action-rpg', 'action', 'military', 'martial-arts', 'flight', 'low-spec', 'tower-defense', 'horror', 'mmorts']
 const colorPalette = ['#ff124fdb', '#2d7bf0db', '#e455aedb', '#7a04ebdb', '#120458db', '#1ac5b0db', '#710000db', '#272932db'];
-const h2ColorPalette = ['#fdf500', '#9370db', '#66fcf2'];
+const h2ColorPalette = ['#fdf500d9', '#9370dbd9', '#66fcf2d9', '#ed8554d9', '#1afe49d9'];
+const alphabets = ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+let alphabeticalData = {};
+
 const removeh2h4 = () => {
     document.querySelector('h2').remove();
     document.querySelector('h4').remove();
 }
 
 const clearChild = (parent) => {
-    while(parent.hasChildNodes()) {
+    while (parent.hasChildNodes()) {
         parent.removeChild(displayPage.firstChild);
     }
 }
 
-const h2ColorRandomizer = () => {
-    document.querySelector('h2').style.color = `${h2ColorPalette[Math.floor(Math.random() * h2ColorPalette.length)]}`;
+const removeAlphabetBox = () => {
+    document.querySelector('.alphabetBox').remove();
 }
+
+const h2ColorRandomizer = () => {
+    let num = Math.floor(Math.random() * h2ColorPalette.length);
+    document.querySelector('h2').style.color = `${h2ColorPalette[num]}`;
+    document.querySelector('.labsh1').style.color = `${h2ColorPalette[num]}`;
+
+}
+
 h2ColorRandomizer();
 
 const create = (tag) => {
@@ -29,7 +40,7 @@ const create = (tag) => {
 
 const url = (params) => {
     let search = `?category=${params}`
-    if(params.length > 0) {
+    if (params.length > 0) {
         return `https://free-to-play-games-database.p.rapidapi.com/api/games${search}`
     } else {
         return `https://free-to-play-games-database.p.rapidapi.com/api/games`
@@ -37,25 +48,25 @@ const url = (params) => {
 };
 
 const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': GAMELABS_API_KEY,
-		'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
-	}
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Key': GAMELABS_API_KEY,
+        'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
+    }
 };
 
-const requestInfo =  (url) => {
+const requestInfo = (url) => {
     fetch(url, options)
-    .then(response => response.json())
-    .then(data => {
-            if(displayPage.hasChildNodes()) {
+        .then(response => response.json())
+        .then(data => {
+            if (displayPage.hasChildNodes()) {
                 clearChild(displayPage);
             }
-            for(let i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 displayPage.appendChild(document.createElement('div'));
             }
             console.log(`Displaying total of: ${displayPage.childNodes.length} games`)
-            for(let i = 0; i < displayPage.childNodes.length; i++) {
+            for (let i = 0; i < displayPage.childNodes.length; i++) {
                 displayPage.childNodes[i].setAttribute('class', 'gameBox');
                 displayPage.childNodes[i].appendChild(create('img'));
                 displayPage.childNodes[i].querySelector('img').src = data[i].thumbnail;
@@ -75,19 +86,18 @@ const requestInfo =  (url) => {
                 displayPage.childNodes[i].querySelector('a').setAttribute('target', `_blank`);
                 displayPage.childNodes[i].querySelector('a').textContent = `Link to Offical Site`;
             }
-        }
-    )
-    
+        })
+
 }
 
 const displayCategories = () => {
-    if(displayPage.hasChildNodes()) {
+    if (displayPage.hasChildNodes()) {
         clearChild(displayPage);
     }
-    for(let i = 0; i < allCategories.length; i++) {
+    for (let i = 0; i < allCategories.length; i++) {
         displayPage.appendChild(document.createElement('div'));
     }
-    for(let i = 0; i < allCategories.length; i++) {
+    for (let i = 0; i < allCategories.length; i++) {
         displayPage.childNodes[i].setAttribute('class', 'categoryBox');
         displayPage.childNodes[i].appendChild(create('img'));
         displayPage.childNodes[i].querySelector('img').setAttribute('class', 'sampleImage');
@@ -99,76 +109,153 @@ const displayCategories = () => {
             console.log(`Displaying ${allCategories[i]} related games`)
         });
         fetch(url(`${allCategories[i]}`), options)
-        .then(res => res.json())
-        .then(data => {
-            displayPage.childNodes[i].querySelector('img').src = data[0].thumbnail;
-        })
+            .then(res => res.json())
+            .then(data => {
+                displayPage.childNodes[i].querySelector('img').src = data[0].thumbnail;
+            })
     }
-    for(let box of displayPage.childNodes) {
-        console.log(Math.floor(Math.random() * colorPalette.length))
+    for (let box of displayPage.childNodes) {
         box.style.backgroundColor = `${colorPalette[Math.floor(Math.random() * colorPalette.length)]}`;
+    }
+}
+// letterData parameter example: alphabeticalData[`#`]
+const alphaDataDisplay = (letterData) => {
+    if(letterData.length === 0 ) {
+        displayPage.appendChild(document.createElement('img'));
+        displayPage.querySelector('img').src = './images/6179016.png'
+        displayPage.querySelector('img').setAttribute('id', 'errorImage');
+        displayPage.appendChild(document.createElement('h2'));
+        displayPage.querySelector('h2').textContent = 'Sorry! No results found :(';
+        displayPage.querySelector('h2').setAttribute('id', 'errorh2');
+    }
+    for (let i = 0; i < letterData.length; i++) {
+        displayPage.appendChild(document.createElement('div'));
+        displayPage.childNodes[i].setAttribute('class', 'gameBox');
+        displayPage.childNodes[i].appendChild(create('img'));
+        displayPage.childNodes[i].querySelector('img').src = letterData[i].thumbnail;
+        displayPage.childNodes[i].appendChild(create('div'));
+        displayPage.childNodes[i].querySelector('div').setAttribute('class', 'textBox');
+        displayPage.childNodes[i].querySelector('.textBox').appendChild(create('h3'));
+        displayPage.childNodes[i].querySelector('.textBox').childNodes[0].textContent = `${letterData[i].title}`.toUpperCase();
+        displayPage.childNodes[i].querySelector('.textBox').appendChild(create('span'));
+        displayPage.childNodes[i].querySelector('.textBox').childNodes[1].textContent = `Developer : ${letterData[i].developer}`;
+        displayPage.childNodes[i].querySelector('.textBox').appendChild(create('span'));
+        displayPage.childNodes[i].querySelector('.textBox').childNodes[2].textContent = `Platform : ${letterData[i].platform}`;
+        displayPage.childNodes[i].querySelector('.textBox').appendChild(create('span'));
+        displayPage.childNodes[i].querySelector('.textBox').childNodes[3].textContent = `Release Date : ${letterData[i].release_date}`;
+        displayPage.childNodes[i].querySelector('.textBox').appendChild(create('span'));
+        displayPage.childNodes[i].querySelector('.textBox').childNodes[4].textContent = `Genre : ${letterData[i].genre}`;
+        displayPage.childNodes[i].appendChild(create('a'));
+        displayPage.childNodes[i].querySelector('a').setAttribute('class', `linkButton`);
+        displayPage.childNodes[i].querySelector('a').setAttribute('href', `${letterData[i].game_url}`);
+        displayPage.childNodes[i].querySelector('a').setAttribute('target', `_blank`);
+        displayPage.childNodes[i].querySelector('a').textContent = `Link to Offical Site`;
     }
 }
 
 const createAlphaBox = () => {
-
+    alphabeticalData = {};
+    if (displayPage.hasChildNodes()) {
+        clearChild(displayPage);
+    }
+    if (document.querySelector('body').querySelector('.alphabetBox')) {
+        document.querySelector('body').querySelector('.alphabetBox').remove();
+    }
+    // creates alphabetical links on top of the page
+    document.querySelector('.navbar').after(document.createElement('div'));
+    document.querySelector('body').childNodes[5].setAttribute('class', 'alphabetBox');
+    let alphabetBox = document.querySelector('.alphabetBox');
+    for (let i = 0; i < alphabets.length; i++) {
+        alphabetBox.appendChild(document.createElement('a'));
+        alphabetBox.childNodes[i].setAttribute('class', `alphabets`);
+        alphabetBox.childNodes[i].setAttribute('id', `alphabetical/${alphabets[i]}`);
+        alphabetBox.childNodes[i].setAttribute('href', `#alphabetical/${alphabets[i]}`);
+        alphabetBox.childNodes[i].addEventListener('click', () => {
+            if(displayPage.hasChildNodes()) {
+                clearChild(displayPage);
+            }
+            alphaDataDisplay(alphabeticalData[`${alphabets[i]}`]);
+        });
+        alphabetBox.childNodes[i].textContent = `${alphabets[i]}`;
+        Object.assign(alphabeticalData, {[alphabets[i]]: []});
+    }
+    // fetch data & distribute them into the right categories && automatically display #s
+    fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=alphabetical', options)
+    .then(res => res.json())
+    .then(data => {
+        data.forEach(game => {
+            if(!isNaN(game.title[0])) {alphabeticalData['#'].push(game)};
+            for(let i = 1; i < alphabets.length; i++) {
+                if(game.title[0].toUpperCase() === alphabets[i]) {
+                    alphabeticalData[`${alphabets[i]}`].push(game);
+                }
+            }
+        });
+        alphaDataDisplay(alphabeticalData[`#`]);
+        window.location.href = './index.html#alphabetical/#';
+        
+    });
 }
 
 // adding event listners
 document.querySelector(`#shooter`).addEventListener('click', () => {
-    if(document.querySelector('h2') && document.querySelector('h4')) {
+    if (document.querySelector('h2') && document.querySelector('h4')) {
         removeh2h4();
-        requestInfo(url('shooter'));
-    } else {
-        requestInfo(url('shooter'));
     }
+    if (document.querySelector('.alphabetBox')) {
+        removeAlphabetBox();
+    }
+    requestInfo(url('shooter'));
 });
 document.querySelector(`#survival`).addEventListener('click', () => {
-    if(document.querySelector('h2') && document.querySelector('h4')) {
+    if (document.querySelector('h2') && document.querySelector('h4')) {
         removeh2h4();
-        requestInfo(url('survival'));
-    } else {
-        requestInfo(url('survival'));
     }
+    if (document.querySelector('.alphabetBox')) {
+        removeAlphabetBox();
+    }
+    requestInfo(url('survival'));
 });
 document.querySelector(`#mmorpg`).addEventListener('click', () => {
-    if(document.querySelector('h2') && document.querySelector('h4')) {
+    if (document.querySelector('h2') && document.querySelector('h4')) {
         removeh2h4();
-        requestInfo(url('mmorpg'));
-    } else {
-        requestInfo(url('mmorpg'));
     }
+    if (document.querySelector('.alphabetBox')) {
+        removeAlphabetBox();
+    }
+    requestInfo(url('mmorpg'));
 });
 document.querySelector(`#open-world`).addEventListener('click', () => {
-    if(document.querySelector('h2') && document.querySelector('h4')) {
+    if (document.querySelector('h2') && document.querySelector('h4')) {
         removeh2h4();
-        requestInfo(url('open-world'));
-    } else {
-        requestInfo(url('open-world'));
     }
+    if (document.querySelector('.alphabetBox')) {
+        removeAlphabetBox();
+    }
+    requestInfo(url('open-world'));
 });
 document.querySelector(`#strategy`).addEventListener('click', () => {
-    if(document.querySelector('h2') && document.querySelector('h4')) {
+    if (document.querySelector('h2') && document.querySelector('h4')) {
         removeh2h4();
-        requestInfo(url('strategy'));
-    } else {
-        requestInfo(url('strategy'));
     }
+    if (document.querySelector('.alphabetBox')) {
+        removeAlphabetBox();
+    }
+    requestInfo(url('strategy'));
 });
 document.querySelector(`#seeAll`).addEventListener('click', () => {
-    if(document.querySelector('h2') && document.querySelector('h4')) {
+    if (document.querySelector('h2') && document.querySelector('h4')) {
         removeh2h4();
-        displayCategories();
-    } else {
-        displayCategories();
     }
+    if (document.querySelector('.alphabetBox')) {
+        removeAlphabetBox();
+    }
+    displayCategories();
 });
 document.querySelector(`#alphabetical`).addEventListener('click', () => {
-    if(document.querySelector('h2') && document.querySelector('h4')) {
+    if (document.querySelector('h2') && document.querySelector('h4')) {
         removeh2h4();
-        createAlphaBox();
-    } else {
-        createAlphaBox();
     }
+        createAlphaBox();
 });
 

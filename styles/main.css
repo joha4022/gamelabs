@@ -1,9 +1,6 @@
 html,
 body {
     height: 100px;
-}
-
-body {
     background-color: #1f2833;
     color: white;
     font-family: Arial;
@@ -13,25 +10,28 @@ body {
     background-attachment: fixed;
 }
 
-h1 {
-    display: inline-flex;
-    font-size: 50px;
-}
-
-.labsh2 {
-    padding-right: 100px;
-    color:#66fcf2;
-}
-
 .gameh1 {
-    padding-left: 50px;
+    margin-left: 50px;
+    text-decoration: none;
+    font-size: 40px;
+    color:white;
+    font-weight:bold;
+}
+
+.labsh1 {
+    text-decoration: none;
+    margin-right: 100px;
+    color:#66fcf2;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .navbar {
     overflow: hidden;
     font-family: Arial;
     display: inline-flex;
-
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 .navbar a {
@@ -79,6 +79,8 @@ h1 {
     text-decoration: none;
     display: block;
     text-align: left;
+    border-radius: 5px;
+    margin-top: 2px;
 }
 
 .dropdown-content a:hover {
@@ -90,7 +92,6 @@ h1 {
 }
 
 h2 {
-    color:#66fcf2;
     padding-left: 50px;
     padding-top: 200px;
     font-size: 60px;
@@ -131,7 +132,7 @@ h3 {
 }
 
 .linkButton:hover {
-    background: #8d3150ea;
+    background: #581b2fea;
 }
 
 
@@ -178,4 +179,38 @@ img {
 .categoryButton:hover {
     background: #8d3150ea;
     cursor: pointer;
+}
+
+.alphabetBox {
+    display: flex;
+    justify-content: space-around;
+}
+
+.alphabets {
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+.alphabets:hover {
+    cursor: pointer;
+    color: #66fcf2;
+}
+
+.alphabets:target {
+    color: rgba(255, 0, 55, 0.768);
+}
+
+#errorImage {
+    height: 300px;
+    padding: 90px;
+    opacity: 0.844;
+}
+
+#errorh2 {
+    position: absolute;
+    padding-left: 0px;
+    top: 30%;
+    color: rgba(0, 0, 0, 0.844);
 }
