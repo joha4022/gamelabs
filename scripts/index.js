@@ -11,8 +11,8 @@ let alphabeticalData = {};
 let gameData = {};
 
 const removeh2h4 = () => {
-    document.querySelector('h2').remove();
-    document.querySelector('h4').remove();
+    document.querySelector('h2').style.display = 'none';
+    document.querySelector('h4').style.display = 'none';
 }
 
 const clearChild = (parent) => {
