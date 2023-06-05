@@ -8,6 +8,7 @@ const colorPalette = ['#ff124fdb', '#2d7bf0db', '#e455aedb', '#7a04ebdb', '#1204
 const h2ColorPalette = ['#fdf500d9', '#9370dbd9', '#66fcf2d9', '#ed8554d9', '#1afe49d9'];
 const alphabets = ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 let alphabeticalData = {};
+let gameData = {};
 
 const removeh2h4 = () => {
     document.querySelector('h2').remove();
@@ -58,16 +59,49 @@ const options = {
     }
 };
 
+const detailsPage = (evt, gameData) => {
+    for (let game of gameData) {
+        if (evt.target.parentNode.id === `id_${game.id}`) {
+            displayPage.appendChild(document.createElement('div'));
+            displayPage.childNodes[0].setAttribute('class', 'detailsGameBox');
+            displayPage.childNodes[0].appendChild(create('img'));
+            displayPage.querySelector('img').setAttribute('class', 'detailsPageImage');
+            displayPage.querySelector('img').src = game.thumbnail;
+            displayPage.childNodes[0].appendChild(create('div'));
+            displayPage.childNodes[0].querySelector('div').setAttribute('class', 'detailsTextBox');
+            displayPage.childNodes[0].querySelector('.detailsTextBox').appendChild(create('h3'));
+            displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[0].textContent = `${game.title}`.toUpperCase();
+            displayPage.childNodes[0].querySelector('.detailsTextBox').appendChild(create('span'));
+            displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[1].textContent = `Genre : ${game.genre}`;
+            displayPage.childNodes[0].querySelector('.detailsTextBox').appendChild(create('span'));
+            displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[2].textContent = `Developer : ${game.developer}`;
+            displayPage.childNodes[0].querySelector('.detailsTextBox').appendChild(create('span'));
+            displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[3].textContent = `Platform : ${game.platform}`;
+            displayPage.childNodes[0].querySelector('.detailsTextBox').appendChild(create('span'));
+            displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[4].textContent = `Release Date : ${game.release_date}`
+            displayPage.childNodes[0].querySelector('.detailsTextBox').appendChild(create('span'));
+            displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[5].setAttribute('class', 'detailsDescription');
+            displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[5].textContent = `${game.short_description}`;
+            displayPage.childNodes[0].appendChild(create('a'));
+            displayPage.childNodes[0].querySelector('a').setAttribute('class', `detailsLinkButton`);
+            displayPage.childNodes[0].querySelector('a').setAttribute('href', `${game.game_url}`);
+            displayPage.childNodes[0].querySelector('a').setAttribute('target', `_blank`);
+            displayPage.childNodes[0].querySelector('a').textContent = `Link to Offical Site`;
+        }
+    }
+};
+
 const requestInfo = (url) => {
     spinner('inline-block');
     fetch(url, options)
         .then(response => {
-            if(response.status === 200) {
+            if (response.status === 200) {
                 spinner('none');
             }
             return response.json();
         })
         .then(data => {
+            gameData = data;
             if (displayPage.hasChildNodes()) {
                 clearChild(displayPage);
             }
@@ -77,8 +111,16 @@ const requestInfo = (url) => {
             console.log(`Displaying total of: ${displayPage.childNodes.length} games`)
             for (let i = 0; i < displayPage.childNodes.length; i++) {
                 displayPage.childNodes[i].setAttribute('class', 'gameBox');
-                displayPage.childNodes[i].appendChild(create('img'));
-                displayPage.childNodes[i].querySelector('img').src = data[i].thumbnail;
+                displayPage.childNodes[i].appendChild(create('a'));
+                displayPage.childNodes[i].querySelector('a').setAttribute('id', `id_${data[i].id}`);
+                displayPage.childNodes[i].querySelector('a').setAttribute('class', `thumbnail`);
+                displayPage.childNodes[i].querySelector('a').setAttribute('href', `index.html#id_${data[i].id}`);
+                displayPage.childNodes[i].querySelector('a').addEventListener('click', (evt) => {
+                    clearChild(displayPage);
+                    detailsPage(evt, gameData);
+                });
+                displayPage.childNodes[i].querySelector(`#id_${data[i].id}`).appendChild(create('img'));
+                displayPage.childNodes[i].querySelector(`#id_${data[i].id}`).querySelector('img').src = data[i].thumbnail;
                 displayPage.childNodes[i].appendChild(create('div'));
                 displayPage.childNodes[i].querySelector('div').setAttribute('class', 'textBox');
                 displayPage.childNodes[i].querySelector('.textBox').appendChild(create('h3'));
@@ -90,10 +132,10 @@ const requestInfo = (url) => {
                 displayPage.childNodes[i].querySelector('.textBox').appendChild(create('span'));
                 displayPage.childNodes[i].querySelector('.textBox').childNodes[3].textContent = `Release Date : ${data[i].release_date}`;
                 displayPage.childNodes[i].appendChild(create('a'));
-                displayPage.childNodes[i].querySelector('a').setAttribute('class', `linkButton`);
-                displayPage.childNodes[i].querySelector('a').setAttribute('href', `${data[i].game_url}`);
-                displayPage.childNodes[i].querySelector('a').setAttribute('target', `_blank`);
-                displayPage.childNodes[i].querySelector('a').textContent = `Link to Offical Site`;
+                displayPage.childNodes[i].childNodes[2].setAttribute('class', `linkButton`);
+                displayPage.childNodes[i].childNodes[2].setAttribute('href', `${data[i].game_url}`);
+                displayPage.childNodes[i].childNodes[2].setAttribute('target', `_blank`);
+                displayPage.childNodes[i].childNodes[2].textContent = `Link to Offical Site`;
             }
         })
 
@@ -105,7 +147,7 @@ const displayCategories = () => {
         clearChild(displayPage);
     }
     for (let i = 0; i < allCategories.length; i++) {
-        displayPage.appendChild(document.createElement('div'));
+        displayPage.appendChild(create('div'));
     }
     for (let i = 0; i < allCategories.length; i++) {
         displayPage.childNodes[i].setAttribute('class', 'categoryBox');
@@ -114,13 +156,13 @@ const displayCategories = () => {
         displayPage.childNodes[i].appendChild(create('a'));
         displayPage.childNodes[i].querySelector('a').setAttribute('class', `categoryButton`);
         displayPage.childNodes[i].querySelector('a').textContent = `${allCategories[i]}`.toUpperCase();
-        displayPage.childNodes[i].querySelector('a').addEventListener('click', () => {
+        displayPage.childNodes[i].addEventListener('click', () => {
             requestInfo(url(`${allCategories[i]}`));
             console.log(`Displaying ${allCategories[i]} related games`)
         });
         fetch(url(`${allCategories[i]}`), options)
             .then(res => {
-                if(res.status === 200) {
+                if (res.status === 200) {
                     spinner('none');
                 }
                 return res.json();
@@ -133,9 +175,10 @@ const displayCategories = () => {
         box.style.backgroundColor = `${colorPalette[Math.floor(Math.random() * colorPalette.length)]}`;
     }
 }
+
 // letterData parameter example: alphabeticalData[`#`]
 const alphaDataDisplay = (letterData) => {
-    if(letterData.length === 0 ) {
+    if (letterData.length === 0) {
         displayPage.appendChild(document.createElement('img'));
         displayPage.querySelector('img').src = './images/6179016.png'
         displayPage.querySelector('img').setAttribute('id', 'errorImage');
@@ -146,8 +189,16 @@ const alphaDataDisplay = (letterData) => {
     for (let i = 0; i < letterData.length; i++) {
         displayPage.appendChild(document.createElement('div'));
         displayPage.childNodes[i].setAttribute('class', 'gameBox');
-        displayPage.childNodes[i].appendChild(create('img'));
-        displayPage.childNodes[i].querySelector('img').src = letterData[i].thumbnail;
+        displayPage.childNodes[i].appendChild(create('a'));
+        displayPage.childNodes[i].querySelector('a').setAttribute('id', `id_${letterData[i].id}`);
+        displayPage.childNodes[i].querySelector(`#id_${letterData[i].id}`).setAttribute('class', `thumbnail`);
+        displayPage.childNodes[i].querySelector(`#id_${letterData[i].id}`).setAttribute('href', `#id_${letterData[i].id}`);
+        displayPage.childNodes[i].querySelector(`#id_${letterData[i].id}`).addEventListener('click', (evt) => {
+            clearChild(displayPage);
+            detailsPage(evt, letterData);
+        });
+        displayPage.childNodes[i].querySelector(`#id_${letterData[i].id}`).appendChild(create('img'));
+        displayPage.childNodes[i].querySelector(`#id_${letterData[i].id}`).querySelector('img').src = letterData[i].thumbnail;
         displayPage.childNodes[i].appendChild(create('div'));
         displayPage.childNodes[i].querySelector('div').setAttribute('class', 'textBox');
         displayPage.childNodes[i].querySelector('.textBox').appendChild(create('h3'));
@@ -161,10 +212,10 @@ const alphaDataDisplay = (letterData) => {
         displayPage.childNodes[i].querySelector('.textBox').appendChild(create('span'));
         displayPage.childNodes[i].querySelector('.textBox').childNodes[4].textContent = `Genre : ${letterData[i].genre}`;
         displayPage.childNodes[i].appendChild(create('a'));
-        displayPage.childNodes[i].querySelector('a').setAttribute('class', `linkButton`);
-        displayPage.childNodes[i].querySelector('a').setAttribute('href', `${letterData[i].game_url}`);
-        displayPage.childNodes[i].querySelector('a').setAttribute('target', `_blank`);
-        displayPage.childNodes[i].querySelector('a').textContent = `Link to Offical Site`;
+        displayPage.childNodes[i].childNodes[2].setAttribute('class', `linkButton`);
+        displayPage.childNodes[i].childNodes[2].setAttribute('href', `${letterData[i].game_url}`);
+        displayPage.childNodes[i].childNodes[2].setAttribute('target', `_blank`);
+        displayPage.childNodes[i].childNodes[2].textContent = `Link to Offical Site`;
     }
 }
 
@@ -173,9 +224,6 @@ const createAlphaBox = () => {
     spinner('inline-block');
     if (displayPage.hasChildNodes()) {
         clearChild(displayPage);
-    }
-    if (document.querySelector('body').querySelector('.alphabetBox')) {
-        document.querySelector('body').querySelector('.alphabetBox').remove();
     }
     // creates alphabetical links on top of the page
     document.querySelector('.navbar').after(document.createElement('div'));
@@ -187,35 +235,35 @@ const createAlphaBox = () => {
         alphabetBox.childNodes[i].setAttribute('id', `alphabetical/${alphabets[i]}`);
         alphabetBox.childNodes[i].setAttribute('href', `#alphabetical/${alphabets[i]}`);
         alphabetBox.childNodes[i].addEventListener('click', () => {
-            if(displayPage.hasChildNodes()) {
+            if (displayPage.hasChildNodes()) {
                 clearChild(displayPage);
             }
             alphaDataDisplay(alphabeticalData[`${alphabets[i]}`]);
         });
         alphabetBox.childNodes[i].textContent = `${alphabets[i]}`;
-        Object.assign(alphabeticalData, {[alphabets[i]]: []});
+        Object.assign(alphabeticalData, { [alphabets[i]]: [] });
     }
     // fetch data & distribute them into the right categories && automatically display #s
     fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=alphabetical', options)
-    .then(res => {
-        if(res.status === 200) {
-            spinner('none');
-        }
-        return res.json();
-    })
-    .then(data => {
-        data.forEach(game => {
-            if(!isNaN(game.title[0])) {alphabeticalData['#'].push(game)};
-            for(let i = 1; i < alphabets.length; i++) {
-                if(game.title[0].toUpperCase() === alphabets[i]) {
-                    alphabeticalData[`${alphabets[i]}`].push(game);
-                }
+        .then(res => {
+            if (res.status === 200) {
+                spinner('none');
             }
+            return res.json();
+        })
+        .then(data => {
+            data.forEach(game => {
+                if (!isNaN(game.title[0])) { alphabeticalData['#'].push(game) };
+                for (let i = 1; i < alphabets.length; i++) {
+                    if (game.title[0].toUpperCase() === alphabets[i]) {
+                        alphabeticalData[`${alphabets[i]}`].push(game);
+                    }
+                }
+            });
+            alphaDataDisplay(alphabeticalData[`#`]);
+            window.location.href = 'index.html#alphabetical/#';
+
         });
-        alphaDataDisplay(alphabeticalData[`#`]);
-        window.location.href = './index.html#alphabetical/#';
-        
-    });
 }
 
 // adding event listners
@@ -277,6 +325,9 @@ document.querySelector(`#alphabetical`).addEventListener('click', () => {
     if (document.querySelector('h2') && document.querySelector('h4')) {
         removeh2h4();
     }
-        createAlphaBox();
+    if (document.querySelector('.alphabetBox')) {
+        removeAlphabetBox();
+    }
+    createAlphaBox();
 });
 

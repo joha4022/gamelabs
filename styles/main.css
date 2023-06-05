@@ -123,6 +123,17 @@ h3 {
     margin-bottom: 10px;
 }
 
+.detailsTextBox {
+    display: grid;
+    margin-bottom: 10px;
+}
+
+.detailsDescription {
+    position: absolute;
+    width: 40vw;
+    top: 100%;
+}
+
 .linkButton {
     text-decoration: none;
     color: white;
@@ -132,6 +143,20 @@ h3 {
 }
 
 .linkButton:hover {
+    background: #581b2fea;
+}
+
+.detailsLinkButton {
+    text-decoration: none;
+    color: white;
+    background: #43318db7;
+    padding: 10px;
+    border-radius: 5px;
+    position:absolute;
+    top: 120%;
+}
+
+.detailsLinkButton:hover {
     background: #581b2fea;
 }
 
@@ -152,7 +177,7 @@ span {
 
 img {
     border-radius: 5px;
-    width: inherit;
+    width: 100%;
 }
 
 .sampleImage {
@@ -176,9 +201,25 @@ img {
     font-weight: bold;
 }
 
-.categoryButton:hover {
-    background: #8d3150ea;
+.categoryBox:hover {
     cursor: pointer;
+    opacity: 80%;
+}
+
+.detailsPageImage {
+    width: 150%;
+    margin-top: 20px;
+}
+
+.detailsGameBox {
+    position: absolute;
+    left: 10%;    
+    width: 20vw;
+}
+
+.thumbnail img:hover {
+    cursor: pointer;
+    opacity: 80%;
 }
 
 .alphabetBox {
@@ -203,7 +244,7 @@ img {
 }
 
 #errorImage {
-    height: 300px;
+    width: 300px;
     padding: 90px;
     opacity: 0.844;
 }
@@ -315,8 +356,10 @@ img {
     display: none; /* inline-block */
     overflow: hidden;
     background:none;
-    position: absolute;
+    position: fixed;
     top: 10%;
+    left: 45%;
+
 }
 
 .ldio-c0eyojz9hmi {
