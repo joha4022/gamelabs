@@ -19,8 +19,7 @@ export default GAMELABS_API_KEY;
 Note: Even when using a .js file to seperate your API key from index.js, it will still be visible on browser developer tools. Look into utilizing environment variable and dotenv for future projects.
 
 ## Running GameLabs
-1. Run the files using the VS Code Live Server extension.
-Note: Without a live sever, the API requests will run into a Cross Origion Request (CORS) issue.
+1. Run the files using the VS Code Live Server extension. Without a live sever, the API requests will run into a Cross Origion Request (CORS) issue.
 
 ## Additional Information/Credits
 1. Font Animation: https://alvarotrigo.com/blog/css-text-animations/
