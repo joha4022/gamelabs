@@ -76,6 +76,7 @@ const genreRequest = (event) => {
 }
 
 const detailsPage = (evt, gameData) => {
+    document.querySelector('.filterBox').style.display = 'none';
     for (let game of gameData) {
         if (evt.target.parentNode.id === `id_${game.id}`) {
             displayPage.appendChild(document.createElement('div'));
@@ -173,8 +174,8 @@ const sortByAlphabetical = () => {
  
 const requestInfo = (url) => {
     spinner('inline-block');
-     // filter box
-     document.querySelector('.filterBox').style.display = 'flex';
+    // filter box
+    document.querySelector('.filterBox').style.display = 'flex';
     fetch(url, options)
         .then(response => {
             if (response.status === 200) {
