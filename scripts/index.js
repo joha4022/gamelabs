@@ -10,6 +10,10 @@ const alphabets = ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', '
 let alphabeticalData = {};
 let gameData = {};
 
+document.querySelector('.filterBox').querySelector('.filters').addEventListener('click', () => {
+    sortByReleaseDate();
+ })
+
 const removeh2h4 = () => {
     document.querySelector('h2').style.display = 'none';
     document.querySelector('h4').style.display = 'none';
@@ -59,6 +63,14 @@ const options = {
     }
 };
 
+const genreRequest = (event) => {
+    let genre = event.target.textContent.split(': ')[1].toLowerCase();
+    console.log(genre);
+    if(genre === 'action rpg') {return 'action-rpg';}
+    if(genre === 'card game') {return 'card';}
+    return genre;
+}
+
 const detailsPage = (evt, gameData) => {
     for (let game of gameData) {
         if (evt.target.parentNode.id === `id_${game.id}`) {
@@ -73,6 +85,10 @@ const detailsPage = (evt, gameData) => {
             displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[0].textContent = `${game.title}`.toUpperCase();
             displayPage.childNodes[0].querySelector('.detailsTextBox').appendChild(create('span'));
             displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[1].textContent = `Genre : ${game.genre}`;
+            displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[1].setAttribute ('class', 'genreInfo');
+            displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[1].addEventListener('click', (event) => {
+                requestInfo(url(genreRequest(event)));
+            });
             displayPage.childNodes[0].querySelector('.detailsTextBox').appendChild(create('span'));
             displayPage.childNodes[0].querySelector('.detailsTextBox').childNodes[2].textContent = `Developer : ${game.developer}`;
             displayPage.childNodes[0].querySelector('.detailsTextBox').appendChild(create('span'));
@@ -91,8 +107,39 @@ const detailsPage = (evt, gameData) => {
     }
 };
 
+const sortByReleaseDate = () => {
+    let firstNode = displayPage.childNodes[0].querySelector('.textBox').childNodes[3].textContent.split(': ')[1];
+    let releaseDates = [];
+    for(let eachNode of displayPage.childNodes) {
+        releaseDates.push(eachNode.querySelector('.textBox').childNodes[3].textContent.split(': ')[1])
+    }
+    if (firstNode !== releaseDates.sort()[releaseDates.length-1]) {
+        console.log('descending order');
+        releaseDates = releaseDates.sort();
+        for (let date of releaseDates) {
+            for (let node of displayPage.childNodes) {
+                if(node.querySelector('.textBox').childNodes[3].textContent.split(': ')[1] === date) {
+                    displayPage.prepend(node);
+                }
+            }
+        }
+    } else {
+        releaseDates = releaseDates.reverse();
+        console.log('ascending order');
+        for (let date of releaseDates) {
+            for (let node of displayPage.childNodes) {
+                if(node.querySelector('.textBox').childNodes[3].textContent.split(': ')[1] === date) {
+                    displayPage.prepend(node);
+                }
+            }
+        }
+    }
+}
+ 
 const requestInfo = (url) => {
     spinner('inline-block');
+     // filter box
+     document.querySelector('.filterBox').style.display = 'flex';
     fetch(url, options)
         .then(response => {
             if (response.status === 200) {
@@ -143,6 +190,7 @@ const requestInfo = (url) => {
 
 const displayCategories = () => {
     spinner('inline-block');
+    document.querySelector('.filterBox').style.display = 'none';
     if (displayPage.hasChildNodes()) {
         clearChild(displayPage);
     }
@@ -178,6 +226,7 @@ const displayCategories = () => {
 
 // letterData parameter example: alphabeticalData[`#`]
 const alphaDataDisplay = (letterData) => {
+    document.querySelector('.filterBox').style.display = 'flex';
     if (letterData.length === 0) {
         displayPage.appendChild(document.createElement('img'));
         displayPage.querySelector('img').src = './images/6179016.png'
@@ -330,4 +379,3 @@ document.querySelector(`#alphabetical`).addEventListener('click', () => {
     }
     createAlphaBox();
 });
-
