@@ -11,20 +11,33 @@ body {
     margin: 0px;
 }
 
+#homeIcon {
+    display: inline-flex;
+    width: 3%;
+    opacity: 90%;
+    margin-right: 100px;
+}
+
 .gameh1 {
     margin-left: 50px;
     text-decoration: none;
     font-size: 40px;
     color: white;
     font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    display: inline-flex;
+    opacity: 80%;
 }
 
 .labsh1 {
     text-decoration: none;
-    margin-right: 100px;
     color: #66fcf2;
     font-size: 30px;
     font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    opacity: 80%;
 }
 
 .navbar {
@@ -33,6 +46,7 @@ body {
     display: inline-flex;
     margin-top: 30px;
     margin-bottom: 20px;
+    margin-right: 50px;
 }
 
 .navbar a {
@@ -47,6 +61,10 @@ body {
 .dropdown {
     float: left;
     overflow: hidden;
+}
+
+.dropdown .dropbtn:hover {
+    cursor: pointer;
 }
 
 .dropdown .dropbtn {
@@ -94,19 +112,52 @@ body {
 
 h2 {
     padding-left: 50px;
-    padding-top: 200px;
-    font-size: 60px;
+    margin-top: 200px;
+    margin-right: 100px;
+    font-size: 70px;
+    margin-bottom: 0px;
+    opacity: 80%;
+}
+
+#h2animate {
+    padding-left: 50px;
+    font-size: 10px;
+    margin-top: 0px;
+    margin-right: 100px;
+    text-transform: uppercase;
+    background-image: linear-gradient(-225deg,
+            #231557 0%,
+            #44107a 29%,
+            #ff1361 67%,
+            #fff800 100%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 3s linear infinite;
+    display: inline-block;
+    font-size: 100px;
+}
+
+@keyframes textclip {
+    to {
+        background-position: 200% center;
+    }
 }
 
 h4 {
     color: #d1e8e2cb;
+    padding-top: 50px;
     padding-left: 50px;
-    font-size: 20px;
-    overflow: hidden;
+    font-size: 18px;
 }
 
 h3 {
-    color: #d1e8e2
+    color: #d1e8e2;
+    font-size: 1.2vw;
 }
 
 .displayPage {
@@ -123,6 +174,7 @@ h3 {
 .textBox {
     display: grid;
     margin-bottom: 10px;
+    font-size: 0.9vw;
 }
 
 .detailsTextBox {
@@ -142,6 +194,7 @@ h3 {
     background: #43318db7;
     padding: 10px;
     border-radius: 5px;
+    font-size: 0.8vw;
 }
 
 .linkButton:hover {
@@ -154,7 +207,7 @@ h3 {
     background: #43318db7;
     padding: 10px;
     border-radius: 5px;
-    position:absolute;
+    position: absolute;
     top: 120%;
 }
 
@@ -215,7 +268,7 @@ img {
 
 .detailsGameBox {
     position: absolute;
-    left: 10%;    
+    left: 10%;
     width: 20vw;
 }
 
@@ -355,11 +408,12 @@ img {
 .loadingio-spinner-spinner-c5cmjuf7ctq {
     width: 200px;
     height: 200px;
-    display: none; /* inline-block */
+    display: none;
+    /* inline-block */
     overflow: hidden;
-    background:none;
+    background: none;
     position: fixed;
-    top: 10%;
+    top: 30%;
     left: 45%;
 
 }
@@ -382,10 +436,10 @@ footer {
     background: rgba(255, 255, 255, 0.073);
     color: gray;
     text-align: center;
-    position:fixed;
+    position: fixed;
     bottom: 0%;
     width: 100%;
-    
+
 }
 
 footer p {
@@ -395,7 +449,7 @@ footer p {
 
 .genreInfo:hover {
     cursor: pointer;
-    color:#66fcf2;
+    color: #66fcf2;
 }
 
 .filterBox {
@@ -407,7 +461,7 @@ footer p {
 
 .sortBy {
     font-weight: bold;
-    color:#66fcf2;
+    color: #66fcf2;
     align-self: center;
 }
 
@@ -421,5 +475,5 @@ footer p {
 
 .filters:hover {
     cursor: pointer;
-    color:#66fcf2;
+    color: #66fcf2;
 }

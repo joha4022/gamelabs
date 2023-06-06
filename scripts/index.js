@@ -10,12 +10,16 @@ const alphabets = ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', '
 let alphabeticalData = {};
 let gameData = {};
 
-document.querySelector('.filterBox').querySelector('.filters').addEventListener('click', () => {
+document.querySelector('.filterBox').querySelector('#dateFilter').addEventListener('click', () => {
     sortByReleaseDate();
+ })
+ document.querySelector('.filterBox').querySelector('#alphabeticalFilter').addEventListener('click', () => {
+    sortByAlphabetical();
  })
 
 const removeh2h4 = () => {
     document.querySelector('h2').style.display = 'none';
+    document.querySelector('#h2animate').style.display = 'none';
     document.querySelector('h4').style.display = 'none';
 }
 
@@ -135,6 +139,37 @@ const sortByReleaseDate = () => {
         }
     }
 }
+
+const sortByAlphabetical = () => {
+    let firstNode = displayPage.childNodes[0].querySelector('.textBox').childNodes[0].textContent;
+    let alphabeticalOrder = [];
+    for(let eachNode of displayPage.childNodes) {
+        alphabeticalOrder.push(eachNode.querySelector('.textBox').childNodes[0].textContent)
+    }
+    console.log(firstNode, alphabeticalOrder.sort()[0])
+    if (firstNode !== alphabeticalOrder.sort()[0]) {
+        console.log('descending order');
+        alphabeticalOrder = alphabeticalOrder.sort();
+        for (let title of alphabeticalOrder) {
+            for (let node of displayPage.childNodes) {
+                if(node.querySelector('.textBox').childNodes[0].textContent === title) {
+                    displayPage.append(node);
+                }
+            }
+        }
+    } else {
+        alphabeticalOrder = alphabeticalOrder.sort();
+        console.log('ascending order');
+        for (let title of alphabeticalOrder) {
+            for (let node of displayPage.childNodes) {
+                if(node.querySelector('.textBox').childNodes[0].textContent === title) {
+                    displayPage.prepend(node);
+                }
+            }
+        }
+    }
+}
+
  
 const requestInfo = (url) => {
     spinner('inline-block');
@@ -276,7 +311,7 @@ const createAlphaBox = () => {
     }
     // creates alphabetical links on top of the page
     document.querySelector('.navbar').after(document.createElement('div'));
-    document.querySelector('body').childNodes[5].setAttribute('class', 'alphabetBox');
+    document.querySelector('body').childNodes[7].setAttribute('class', 'alphabetBox');
     let alphabetBox = document.querySelector('.alphabetBox');
     for (let i = 0; i < alphabets.length; i++) {
         alphabetBox.appendChild(document.createElement('a'));
