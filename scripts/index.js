@@ -264,11 +264,8 @@ const displayCategories = () => {
 const alphaDataDisplay = (letterData) => {
     document.querySelector('.filterBox').style.display = 'flex';
     if (letterData.length === 0) {
-        displayPage.appendChild(document.createElement('img'));
-        displayPage.querySelector('img').src = './images/6179016.png'
-        displayPage.querySelector('img').setAttribute('id', 'errorImage');
         displayPage.appendChild(document.createElement('h2'));
-        displayPage.querySelector('h2').textContent = 'Sorry! No results found :(';
+        displayPage.querySelector('h2').textContent = 'NO RESULTS FOUND';
         displayPage.querySelector('h2').setAttribute('id', 'errorh2');
     }
     for (let i = 0; i < letterData.length; i++) {
