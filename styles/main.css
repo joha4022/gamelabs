@@ -40,6 +40,10 @@ body {
     opacity: 80%;
 }
 
+#homeLink:hover {
+    color: #66fcf2;
+}
+
 .navbar {
     overflow: hidden;
     font-family: Arial;
@@ -65,6 +69,7 @@ body {
 
 .dropdown .dropbtn:hover {
     cursor: pointer;
+    color: #66fcf2;
 }
 
 .dropdown .dropbtn {
@@ -277,6 +282,10 @@ img {
     opacity: 80%;
 }
 
+#alphabetical:hover {
+    color: #66fcf2;
+}
+
 .alphabetBox {
     display: flex;
     justify-content: space-around;
@@ -447,6 +456,7 @@ img {
     font-weight: bold;
     color: #66fcf2;
     align-self: center;
+    opacity: 80%;
 }
 
 .filters {
