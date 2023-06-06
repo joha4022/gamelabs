@@ -18,5 +18,10 @@ export default GAMELABS_API_KEY;
 Running GameLabs
 1. Run the files using the VS Code Live Server extension.
 
+Additional Information
+1. Font Animation: https://alvarotrigo.com/blog/css-text-animations/
+2. Background: https://www.deviantart.com/skullbreaker000/art/Cool-Gaming-Background-4k-876162743 by SkullBreaker000
+
+
 
 
