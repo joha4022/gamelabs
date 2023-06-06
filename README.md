@@ -1,4 +1,4 @@
-# sdi17-project1 (GAMELABS)
+# SDI17 Project 1: GAMELABS
 
 ## Overview
 GameLabs uses freetogame api to provide you with free PC games in its database.
